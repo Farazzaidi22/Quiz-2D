@@ -5,31 +5,47 @@ using UnityEngine.UI;
 
 public class MoveWithButtons : MonoBehaviour
 {
-    //Outside your functions where you want to set all your declarations...
-    public Sprite[] gallery; //store all your images in here at design time
-    public Image displayImage; //The current image thats visible
-    public Button nextImg; //Button to view next image
-    public Button prevImg; //Button to view previous image
-    public int i = 0; //Will control where in the array you are
+    public GameObject[] mailPrefab;
+    int currentIndex = 0;
 
-    public void BtnNext()
+    //sets everything except the first gameObject to inactive
+    void Awake()
     {
-        if (i + 1 < gallery.Length)
+        if (mailPrefab.Length > 0) //you might not need this check, but it will catch any weird edge cases
         {
-            i++;
+            for (int i = 1; i < mailPrefab.Length; ++i)
+            {
+                mailPrefab[i].SetActive(false);
+            }
         }
     }
 
-    public void BtnPrev()
+    public int CurrentIndex
     {
-        if (i - 1 > 0)
+        get
         {
-            i--;
+            return currentIndex;
         }
-    }
+        set
+        {
+            if (mailPrefab[currentIndex] != null)
+            {
+                //set the current active object to inactive, before replacing it
+                GameObject aktivesObj = mailPrefab[currentIndex];
+                aktivesObj.SetActive(false);
+            };
 
-    void Update()
-    {
-        displayImage.sprite = gallery[i];
+            if (value < 0)
+                currentIndex = mailPrefab.Length - 1;
+            else if (value > mailPrefab.Length - 1)
+                currentIndex = 0;
+            else
+                currentIndex = value;
+            if (mailPrefab[currentIndex] != null)
+            {
+                GameObject aktivesObj = mailPrefab[currentIndex];
+                aktivesObj.SetActive(true);
+            }
+        }
     }
 }
