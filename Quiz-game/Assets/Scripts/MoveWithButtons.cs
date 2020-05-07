@@ -3,49 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class MoveWithButtons : MonoBehaviour
 {
-    public GameObject[] mailPrefab;
-    int currentIndex = 0;
+    public Scrollbar Target;
+    public Button TheOtherButton;
+    public float Step = 0.1f;
 
-    //sets everything except the first gameObject to inactive
-    void Awake()
+    public void Increment()
     {
-        if (mailPrefab.Length > 0) //you might not need this check, but it will catch any weird edge cases
-        {
-            for (int i = 1; i < mailPrefab.Length; ++i)
-            {
-                mailPrefab[i].SetActive(false);
-            }
-        }
+        if (Target == null || TheOtherButton == null) //throw new Exception("Setup ScrollbarIncrementer first!");
+        Target.value = Mathf.Clamp(Target.value + Step, 0, 1);
+        GetComponent<Button>().interactable = Target.value != 1;
+        TheOtherButton.interactable = true;
     }
 
-    public int CurrentIndex
+    public void Decrement()
     {
-        get
-        {
-            return currentIndex;
-        }
-        set
-        {
-            if (mailPrefab[currentIndex] != null)
-            {
-                //set the current active object to inactive, before replacing it
-                GameObject aktivesObj = mailPrefab[currentIndex];
-                aktivesObj.SetActive(false);
-            };
-
-            if (value < 0)
-                currentIndex = mailPrefab.Length - 1;
-            else if (value > mailPrefab.Length - 1)
-                currentIndex = 0;
-            else
-                currentIndex = value;
-            if (mailPrefab[currentIndex] != null)
-            {
-                GameObject aktivesObj = mailPrefab[currentIndex];
-                aktivesObj.SetActive(true);
-            }
-        }
+        if (Target == null || TheOtherButton == null) //throw new Exception("Setup ScrollbarIncrementer first!");
+        Target.value = Mathf.Clamp(Target.value - Step, 0, 1);
+        GetComponent<Button>().interactable = Target.value != 0; ;
+        TheOtherButton.interactable = true;
     }
 }
