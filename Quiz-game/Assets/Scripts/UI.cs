@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public InputField[] iField;
+    public Text score;
     string Answers;
+    int score_value = 0;
 
     public void Q1()
     {
@@ -16,11 +18,13 @@ public class UI : MonoBehaviour
         if (Answers == "JUPITER" || Answers == "jupiter")
         {
             Debug.Log("Correct answer 1");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 1");
         }
     }
@@ -32,11 +36,13 @@ public class UI : MonoBehaviour
         if (Answers == "NEPTUNE" || Answers == "neptune")
         {
             Debug.Log("Correct answer 2");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 2");
         }
     }
@@ -48,11 +54,13 @@ public class UI : MonoBehaviour
         if (Answers == "CERES" || Answers == "ceres")
         {
             Debug.Log("Correct answer 3");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 3");
         }
     }
@@ -64,11 +72,13 @@ public class UI : MonoBehaviour
         if (Answers == "Third" || Answers == "third" || Answers == "3")
         {
             Debug.Log("Correct answer 4");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 4");
         }
     }
@@ -80,11 +90,13 @@ public class UI : MonoBehaviour
         if (Answers == "Eight" || Answers == "8")
         {
             Debug.Log("Correct answer 5");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 5");
         }
     }
@@ -96,12 +108,28 @@ public class UI : MonoBehaviour
         if (Answers == "MARS" || Answers == "mars")
         {
             Debug.Log("Correct answer 6");
+            CalculateScore(true);
             Answers = "";
         }
         else
         {
             Answers = "";
+            CalculateScore(false);
             Debug.Log("Wrong answer 6");
+        }
+    }
+
+    void CalculateScore(bool b)
+    {
+        if (b)
+        {
+            score_value = score_value + 10;
+            score.text = "Score: " + score_value;
+        }
+        else
+        {
+            score_value = score_value -5;
+            score.text = "Score: " + score_value;
         }
     }
 }
