@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    public Text energyAmt;
+    public InputField iField;
+    string Planet;
 
-    public void Answer(string ans)
+    public void MyFunction()
     {
-        int n;
-        if (int.TryParse(ans, out n))
+        Debug.Log(iField.text);
+        Planet = iField.text;
+
+        if (Planet == "JUPITER" || Planet == "jupiter")
         {
-            print("amil4");
-            energyAmt.text = ans;
+            Debug.Log("Correct answer");
+        }
+        else
+        {
+            Debug.Log("Wrong answer");
         }
     }
 }
